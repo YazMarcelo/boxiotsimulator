@@ -1,8 +1,12 @@
 package br.com.boxiot.controller;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.boxiot.dao.ItemDAO;
+import br.com.boxiot.dao.ItemModoDAO;
 import br.com.boxiot.dao.LocalDAO;
+import br.com.boxiot.model.ItemModo;
 import br.com.boxiot.model.Local;
 
 @Controller
@@ -24,7 +31,10 @@ public class SimuladorController {
 	private LocalDAO localDAO;
 	
 	@Autowired
-	private LocalDAO itemDAO;
+	private ItemDAO itemDAO;
+	
+	@Autowired
+	private ItemModoDAO itensModoDAO;
 
 	/*@InitBinder*/
 	/*protected void initBinder(WebDataBinder binder) {
@@ -33,13 +43,28 @@ public class SimuladorController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView modelAndView = new ModelAndView("simulador/tela");
+		ModelAndView modelAndView = new ModelAndView("Simulador/tela");
 		modelAndView.addObject("locais", localDAO.list());
 		modelAndView.addObject("itens", itemDAO.list());
 		return modelAndView;
 	}
 	
-	@RequestMapping("/tela")
+	
+	@RequestMapping(value="/recuperar",method = RequestMethod.GET)
+	public String getItens(){
+		
+		List<ItemModo> listItemModos = itensModoDAO.list();
+		String retorno = "";
+		for(int i = 0; i < listItemModos.size(); i++){
+			if(retorno.length() > 0)
+				retorno += ";";
+			retorno += listItemModos.get(i).getIdItem() + "," + listItemModos.get(i).getPorcentagem();
+		}
+		
+		return retorno;
+	}
+	
+	@RequestMapping("")
 	public ModelAndView alterar(@PathVariable("id") int id, Local local){
 	ModelAndView modelAndView = new ModelAndView("local/alteracao");
 	modelAndView.addObject("local", localDAO.obterLocal(id));

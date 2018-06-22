@@ -33,6 +33,20 @@
 	span.select2.select2-container.select2-container--bootstrap.select2-container--focus{
 		width:100% !important;
 	}
+	.card.card-stats{
+	background-color:black;
+    height: 150px;
+    width: 135px;
+}
+
+i.icone-item{
+    margin-top: 20px !important;
+    font-size: 90px !important;
+}
+
+.card-title{
+text-align: center;
+}
 	</style>
     
 <head>
