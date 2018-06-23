@@ -30,6 +30,8 @@
                 <h4>${local.descricao}</h4>
                       <div class="row">
                       <c:forEach items="${itens}" var="item">
+                      	<c:if test="${item.idLocal == local.id}">
+                      		
                       	<div class="col-lg-2 col-md-2 col-sm-2">
                             <div class="card card-stats">
                                 <div class="card-header card-header-warning card-header-icon">
@@ -45,6 +47,7 @@
                                 </div>
                             </div>
                         </div>
+                      	</c:if>
                       </c:forEach>
   					</div>
                                     </c:forEach>

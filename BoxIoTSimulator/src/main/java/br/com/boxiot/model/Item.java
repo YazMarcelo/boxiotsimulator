@@ -30,8 +30,19 @@ public class Item{
 	@Column(name="item_local_id")
 	private	int idLocal;
 	
+	public Boolean getLigado() {
+		return ligado;
+	}
+
+	public void setLigado(Boolean ligado) {
+		this.ligado = ligado;
+	}
+
 	@Column(name="excluido")
 	private Boolean excluido = false;
+	
+	@Column(name="item_ligado")
+	private	Boolean ligado;
 
 	public Boolean getExcluido() {
 		return excluido;

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.boxiot.dao.ItemDAO;
 import br.com.boxiot.dao.ItemModoDAO;
 import br.com.boxiot.dao.LocalDAO;
+import br.com.boxiot.model.Item;
 import br.com.boxiot.model.ItemModo;
 import br.com.boxiot.model.Local;
 
@@ -53,12 +54,18 @@ public class SimuladorController {
 	@RequestMapping(value="/recuperar",method = RequestMethod.GET)
 	public String getItens(){
 		
-		List<ItemModo> listItemModos = itensModoDAO.list();
+		List<Item> listItemModos = itemDAO.list();
 		String retorno = "";
 		for(int i = 0; i < listItemModos.size(); i++){
-			if(retorno.length() > 0)
-				retorno += ";";
-			retorno += listItemModos.get(i).getIdItem() + "," + listItemModos.get(i).getPorcentagem();
+			if(listItemModos.get(i).getLigado()){
+				if(retorno.length() > 0)
+					retorno += ";";
+				
+				retorno += listItemModos.get(i).getId();
+			}
+			
+			
+			
 		}
 		
 		return retorno;
